@@ -3,14 +3,6 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const overviewStyle = {
-  border: "solid",
-  height: "20%",
-  marginLeft: "3%",
-  borderColor: "grey",
-  padding: "10px",
-};
-
 const fontStyle = {
   fontFamily: "Verdana",
   color: "#525252",
@@ -23,7 +15,7 @@ const logoutButtonStyle = {
 
 export default function Overview() {
   return (
-    <div style={overviewStyle}>
+    <div>
       <Grid container>
         <Grid item xs={2}>
           <Avatar sx={{ width: 150, height: 150 }}></Avatar>
