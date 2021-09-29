@@ -7,12 +7,9 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import SearchIcon from "@mui/icons-material/Search";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
-const fontStyle = {
-  fontFamily: "Verdana",
-  color: "#525252",
-  marginBottom: "-10px",
-};
+import { fontStyle } from "../style.js";
 
+const overviewFontStyle = { ...fontStyle, ...{ marginBottom: "-10px" } };
 const buttonsStyle = {
   marginTop: "80px",
 };
@@ -25,9 +22,9 @@ export default function Overview() {
           <Avatar sx={{ width: 150, height: 150 }}></Avatar>
         </Grid>
         <Grid item xs={3}>
-          <h1 style={fontStyle}>First Last</h1>
-          <h3 style={fontStyle}>ID: 1234567890</h3>
-          <p style={fontStyle}>Program Name | Year 4</p>
+          <h1 style={overviewFontStyle}>First Last</h1>
+          <h3 style={overviewFontStyle}>ID: 1234567890</h3>
+          <p style={overviewFontStyle}>Program Name | Year 4</p>
         </Grid>
         <Grid item xs={7} style={buttonsStyle}>
           <ButtonGroup variant="outlined" aria-label="outlined button group">
