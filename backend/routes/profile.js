@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const userInfos = {
+const profile = {
   name: "John Smith",
   date_of_birth: "01/01/2021",
   country: "Argentina",
@@ -15,7 +15,7 @@ const userInfos = {
 };
 
 const checkValidParameters = (req, res, next) => {
-  availableParameters = Object.keys(userInfos);
+  availableParameters = Object.keys(profile);
   validParameters = Object.keys(req.body).every((parameter) =>
     availableParameters.includes(parameter)
   );
@@ -31,14 +31,14 @@ const checkValidParameters = (req, res, next) => {
 router.use(checkValidParameters);
 
 router.get("/", function (req, res) {
-  res.json([userInfos]);
+  res.json(profile);
 });
 
 router.put("/", function (req, res) {
   Object.entries(req.body).map(([key, value]) => {
-    userInfos[key] = value;
+    profile[key] = value;
   });
-  res.json(userInfos);
+  res.json(profile);
 });
 
 module.exports = router;

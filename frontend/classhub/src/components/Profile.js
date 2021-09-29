@@ -1,3 +1,5 @@
+import React, { Component } from "react";
+
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -14,24 +16,12 @@ import WarningIcon from "@mui/icons-material/Warning";
 import EditIcon from "@mui/icons-material/Edit";
 
 import { fontStyle } from "../style.js";
+import { PROFILE_ENDPOINT } from "../static.js";
 
 const profileStyle = {
   margin: "20px",
   padding: "10px",
   overflow: "auto",
-};
-
-const userInfos = {
-  name: "John Smith",
-  date_of_birth: "01/01/2021",
-  country: "Argentina",
-  us_citizenship: "Unknown",
-  address: "101 TownsBeach CA, USA",
-  email: "johnsmith@email.com",
-  phone_number: "(000)-000-0000",
-  emergency_contact_name: "Bob Smith",
-  emergency_contact_email: "bobsmith@email.com",
-  emergency_contact_phone_number: "(111)-111-1111",
 };
 
 function showProfileInfo(key, value) {
@@ -81,12 +71,35 @@ function showProfileIcon(key) {
   }
 }
 
-export default function Profile() {
-  return (
-    <div style={profileStyle}>
-      {Object.entries(userInfos).map(([key, value]) => {
-        return showProfileInfo(key, value);
-      })}
-    </div>
-  );
+export class Profile extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { profile: {} };
+  }
+
+  componentDidMount() {
+    fetch(PROFILE_ENDPOINT)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        this.setState({ profile: data });
+        console.log(data);
+      });
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      <div style={profileStyle}>
+        {this.state.profile &&
+          Object.entries(this.state.profile).map(([key, value]) => {
+            return showProfileInfo(key, value);
+          })}
+      </div>
+    );
+  }
 }
+
+export default Profile;

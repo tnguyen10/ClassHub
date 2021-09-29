@@ -1,0 +1,1 @@
+export const PROFILE_ENDPOINT = "http://localhost:3000/api/profile"
