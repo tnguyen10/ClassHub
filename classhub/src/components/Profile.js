@@ -1,4 +1,6 @@
 import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 
 import PersonIcon from "@mui/icons-material/Person";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -9,8 +11,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import WarningIcon from "@mui/icons-material/Warning";
-
-import Divider from "@mui/material/Divider";
+import EditIcon from "@mui/icons-material/Edit";
 
 import { fontStyle } from "../style.js";
 
@@ -44,10 +45,15 @@ function showProfileInfo(key, value) {
           <p style={fontStyle}>{key.replaceAll("_", " ").toUpperCase()}</p>
         </Grid>
         <Grid item xs={6.5}>
-          <p style={fontStyle}>{value}</p>
+          <span style={fontStyle}>{value}</span>
+          <span>
+            <IconButton aria-label="edit">
+              <EditIcon />
+            </IconButton>
+          </span>
         </Grid>
       </Grid>
-      {key != "emergency_contact_phone_number" && <Divider /> }
+      {key != "emergency_contact_phone_number" && <Divider />}
     </div>
   );
 }

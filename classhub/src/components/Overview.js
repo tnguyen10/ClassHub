@@ -22,9 +22,9 @@ export default function Overview() {
           <Avatar sx={{ width: 150, height: 150 }}></Avatar>
         </Grid>
         <Grid item xs={3}>
-          <h1 style={overviewFontStyle}>First Last</h1>
+          <h1 style={overviewFontStyle}>John Smith</h1>
           <h3 style={overviewFontStyle}>ID: 1234567890</h3>
-          <p style={overviewFontStyle}>Program Name | Year 4</p>
+          <p style={overviewFontStyle}>Computer Science Major | Year 4</p>
         </Grid>
         <Grid item xs={7} style={buttonsStyle}>
           <ButtonGroup variant="outlined" aria-label="outlined button group">
