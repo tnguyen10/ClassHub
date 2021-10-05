@@ -26,28 +26,10 @@ const profileStyle = {
   overflow: "auto",
 };
 
-function showProfileIcon(key) {
-  switch (key) {
-    case "name":
-      return <PersonIcon />;
-    case "date_of_birth":
-      return <CakeIcon />;
-    case "country":
-      return <PublicIcon />;
-    case "us_citizenship":
-      return <EmojiFlagsIcon />;
-    case "address":
-      return <HomeIcon />;
-    case "email":
-      return <EmailIcon />;
-    case "phone_number":
-      return <PhoneIcon />;
-    case key.substring("emergency_contact"):
-      return <WarningIcon />;
-    default:
-      return <CheckBoxOutlineBlankIcon />;
-  }
-}
+const saveButtonStyle = {
+  marginRight: "10px",
+  marginLeft: "10px",
+};
 
 export class Profile extends Component {
   constructor(props) {
@@ -65,64 +47,14 @@ export class Profile extends Component {
       <div>
         <Grid container direction="row" alignItems="center">
           <Grid item xs={0.5}>
-            {showProfileIcon(key)}
+            {this.showProfileIcon(key)}
           </Grid>
           <Grid item xs={5}>
-            <p style={fontStyle}>{this.showCleanProfileKey(key)}</p>
+            {this.showProfileKey(key)}
           </Grid>
           <Grid item xs={6.5}>
-            {this.state.currentlyEdited !== key && (
-              <span style={fontStyle}>{value}</span>
-            )}
-            {this.state.currentlyEdited == key && (
-              <TextField
-                id="standard-basic"
-                variant="standard"
-                placeholder={value}
-                name={key}
-                onChange={(e) => {
-                  this.handleEditInput(e);
-                }}
-                ref="editiedTextField"
-              />
-            )}
-            <span>
-              {this.state.currentlyEdited !== key && (
-                <IconButton
-                  aria-label="edit"
-                  onClick={() => {
-                    this.handleEditButton(key, "edit");
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-              )}
-              {this.state.currentlyEdited == key && (
-                <span>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    color="success"
-                    style={{ marginRight: "10px", marginLeft: "10px" }}
-                    onClick={() => {
-                      this.handleEditButton(key, "save");
-                    }}
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    color="error"
-                    onClick={() => {
-                      this.handleEditButton(key, "cancel");
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                </span>
-              )}
-            </span>
+            {this.showProfileValue(key, value)}
+            {this.showProfileButtons(key)}
           </Grid>
         </Grid>
         {key != "emergency_contact_phone_number" && <Divider />}
@@ -130,24 +62,103 @@ export class Profile extends Component {
     );
   }
 
-  showCleanProfileKey(key) {
-    return key.replaceAll("_", " ").toUpperCase()
+  showProfileIcon(key) {
+    switch (key) {
+      case "name":
+        return <PersonIcon />;
+      case "date_of_birth":
+        return <CakeIcon />;
+      case "country":
+        return <PublicIcon />;
+      case "us_citizenship":
+        return <EmojiFlagsIcon />;
+      case "address":
+        return <HomeIcon />;
+      case "email":
+        return <EmailIcon />;
+      case "phone_number":
+        return <PhoneIcon />;
+      case key.substring("emergency_contact"):
+        return <WarningIcon />;
+      default:
+        return <CheckBoxOutlineBlankIcon />;
+    }
   }
 
-  handleEditButton(key, action) {
+  showProfileKey(key) {
+    return <p style={fontStyle}>{key.replaceAll("_", " ").toUpperCase()}</p>;
+  }
+
+  showProfileValue(key, value) {
+    return (
+      <span>
+        {this.state.currentlyEdited !== key && (
+          <span style={fontStyle}>{value}</span>
+        )}
+        {this.state.currentlyEdited == key && (
+          <TextField
+            id="standard-basic"
+            variant="standard"
+            placeholder={value}
+            name={key}
+            onChange={(event) => {
+              this.handleEditInput(event);
+            }}
+          />
+        )}
+      </span>
+    );
+  }
+
+  showProfileButtons(key) {
+    return (
+      <span>
+        {this.state.currentlyEdited !== key && (
+          <IconButton
+            aria-label="edit"
+            onClick={() => {
+              this.handleProfileButtons(key, "edit");
+            }}
+          >
+            <EditIcon />
+          </IconButton>
+        )}
+        {this.state.currentlyEdited == key && (
+          <span>
+            <Button
+              variant="outlined"
+              size="small"
+              color="success"
+              style={saveButtonStyle}
+              onClick={() => {
+                this.handleProfileButtons(key, "save");
+              }}
+            >
+              Save
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              color="error"
+              onClick={() => {
+                this.handleProfileButtons(key, "cancel");
+              }}
+            >
+              Cancel
+            </Button>
+          </span>
+        )}
+      </span>
+    );
+  }
+
+  handleProfileButtons(key, action) {
     if (action == "save") {
-      console.log(key, this.state.currentlyEditiedValue);
-      this.saveProfile(
-        key,
-        this.state.currentlyEditiedValue,
-        this.loadProfile(() => {
-          console.log("SET STATE");
-          this.setState({ currentlyEdited: "" }, () => {
-            this.loadProfile();
-          });
-        })
-      );
-      this.loadProfile();
+      this.updateProfile(key, this.state.currentlyEditiedValue, () => {
+        this.setState({ currentlyEdited: "" }, () => {
+          this.loadProfile();
+        });
+      });
     } else if (action == "cancel") {
       this.setState({ currentlyEdited: "" });
     } else {
@@ -156,17 +167,14 @@ export class Profile extends Component {
   }
 
   handleEditInput(event) {
-    console.log(event.target.value);
     this.setState({ currentlyEditiedValue: event.target.value });
   }
 
-  saveProfile(key, value, callback = null) {
-    console.log("SAVE");
+  updateProfile(key, value, callback = null) {
     const data = {};
     data[key] = value;
-    console.log(data);
     fetch(PROFILE_ENDPOINT, {
-      method: "PUT", // or 'PUT'
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -174,25 +182,19 @@ export class Profile extends Component {
     })
       .then((res) => {
         return res.json();
-        callback && callback();
       })
-      .then((data) => {});
+      .then((data) => {
+        callback && callback();
+      });
   }
 
   loadProfile(callback = null) {
-    console.log("LOAD");
     fetch(PROFILE_ENDPOINT)
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        const profile = {};
-        Object.entries(data).map(([key, value]) => {
-          profile[key] = { value: value, editButtonState: false };
-        });
-        this.setState({ profile: profile });
-        console.log(data);
-        callback && callback();
+        this.setState({ profile: data });
       });
   }
 
@@ -201,12 +203,11 @@ export class Profile extends Component {
   }
 
   render() {
-    console.log(this.state, "state");
     return (
       <div style={profileStyle}>
         {this.state.profile &&
           Object.entries(this.state.profile).map(([key, value]) => {
-            return this.showProfileInfo(key, value.value);
+            return this.showProfileInfo(key, value);
           })}
       </div>
     );
