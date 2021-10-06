@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const {getProfile} = require('../database/profile');
+
 const profile = {
   name: "John Smith",
   date_of_birth: "01/01/2021",
@@ -30,8 +32,8 @@ const checkValidParameters = (req, res, next) => {
 
 router.use(checkValidParameters);
 
-router.get("/", function (req, res) {
-  res.json(profile);
+router.get("/", async (req, res) => {
+  res.json(await getProfile());
 });
 
 router.put("/", function (req, res) {
