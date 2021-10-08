@@ -4,7 +4,6 @@ Easy to use class searches and scheduling website
 ## Objective
 - Create a clean and interactive website for students to search and schedule their classes
 - Review web development (React, REST API, NodeJS), integrate a fully functional database (work with more transaction and concurrency issues)
-- Attempt to improve current BearTracks
 
 ## Major functions
 ### Main Landing page
