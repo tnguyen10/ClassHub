@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Overview from "./components/Overview.js";
 import Profile from "./components/Profile.js";
 
@@ -18,13 +20,22 @@ const bodyStyle = {
   overflow: "auto",
 };
 
+function styleWrap(style, component) {
+  return (
+    (style == "app" && <div style={appStyle}>{component}</div>) ||
+    (style == "body" && <div style={bodyStyle}>{component}</div>)
+  );
+}
 export default function App() {
   return (
-    <div style={appStyle}>
-      <Overview />
-      <div style={bodyStyle}>
-        <Profile />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={styleWrap("app", <Overview />)}>
+          <Route path="profile" element={styleWrap("body", <Profile />)} />
+          <Route path="class_schedule" element={styleWrap("body", <Profile />)} />
+          <Route path="class_search" element={styleWrap("body", <Profile />)} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

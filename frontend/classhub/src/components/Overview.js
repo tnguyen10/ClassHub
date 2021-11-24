@@ -1,3 +1,5 @@
+import { Outlet, Link } from "react-router-dom";
+
 import Avatar from "@mui/material/Avatar";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -28,13 +30,14 @@ export default function Overview() {
         </Grid>
         <Grid item xs={7} style={buttonsStyle}>
           <ButtonGroup variant="outlined" aria-label="outlined button group">
-            <Button startIcon={<PersonIcon />}>Profile</Button>
-            <Button startIcon={<CalendarTodayIcon />}>Class Schedule</Button>
-            <Button startIcon={<SearchIcon />}>Class Searches</Button>
-            <Button endIcon={<LogoutIcon />}>Logout</Button>
+            <Button startIcon={<PersonIcon />}><Link to="/profile">Profile</Link></Button>
+            <Button startIcon={<CalendarTodayIcon />}><Link to="/class_schedule">Class Schedule</Link></Button>
+            <Button startIcon={<SearchIcon />}><Link to="/class_search">Class Searches</Link></Button>
+            <Button endIcon={<LogoutIcon />}><Link to="/logout">Logout</Link></Button>
           </ButtonGroup>
         </Grid>
       </Grid>
+      <Outlet />
     </div>
   );
 }

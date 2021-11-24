@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-
 import PersonIcon from "@mui/icons-material/Person";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CakeIcon from "@mui/icons-material/Cake";
@@ -188,7 +187,7 @@ export class Profile extends Component {
       });
   }
 
-  loadProfile(callback = null) {
+  loadProfile() {
     fetch(PROFILE_ENDPOINT)
       .then((res) => {
         return res.json();
