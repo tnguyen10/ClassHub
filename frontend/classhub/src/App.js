@@ -4,27 +4,23 @@ import Overview from "./components/Overview.js";
 import Profile from "./components/Profile.js";
 import ClassSchedule from "./components/ClassSchedule.js";
 
+import {bodyStyle} from "./style.js"
+
 const appStyle = {
   height: "100vh",
   margin: "10px",
   borderColor: "grey",
 };
 
-const bodyStyle = {
-  border: "solid",
-  borderColor: "#4dabf5",
+const appBodyStyle = {...{
   minHeight: "65vh",
-  marginLeft: "1%",
-  borderWidth: "1px",
-  borderRadius: "5px",
   marginTop: "10px",
-  overflow: "auto",
-};
+},...bodyStyle};
 
 function styleWrap(style, component) {
   return (
     (style == "app" && <div style={appStyle}>{component}</div>) ||
-    (style == "body" && <div style={bodyStyle}>{component}</div>)
+    (style == "body" && <div style={appBodyStyle}>{component}</div>)
   );
 }
 export default function App() {

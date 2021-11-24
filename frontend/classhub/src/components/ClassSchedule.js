@@ -5,6 +5,21 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
+import { bodyStyle, fontStyle } from "../style.js";
+
+const classScheduleBodyStyle = {
+  ...{
+    minHeight: "40vh",
+    margin: "20px",
+    padding: "5px",
+  },
+  ...bodyStyle,
+};
+
+const classScheduleFontStyle = {
+    ...{textAlign: "center"}, ...fontStyle,
+}
+
 export class ClassSchedule extends Component {
   constructor(props) {
     super(props);
@@ -32,9 +47,40 @@ export class ClassSchedule extends Component {
       </FormControl>
     );
   }
+
+  showCalendarView() {
+    return (
+      <div style={classScheduleBodyStyle}>
+        <p style={classScheduleFontStyle}>Calendar View</p>
+      </div>
+    );
+  }
+
+  showDetailView() {
+    return (
+      <div style={classScheduleBodyStyle}>
+        <p style={classScheduleFontStyle}>Detail View</p>
+      </div>
+    );
+  }
+
+  showWishList() {
+    return (
+      <div style={classScheduleBodyStyle}>
+        <p style={classScheduleFontStyle}>Wishlist</p>
+      </div>
+    );
+  }
   render() {
     console.log(this.state);
-    return <div>{this.showSemesterSelection()}</div>;
+    return (
+      <div>
+        {this.showSemesterSelection()}
+        {this.showCalendarView()}
+        {this.showDetailView()}
+        {this.showWishList()}
+      </div>
+    );
   }
 }
 
