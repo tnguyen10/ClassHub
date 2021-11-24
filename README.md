@@ -4,7 +4,6 @@ Easy to use class searches and scheduling website
 ## Objective
 - Create a clean and interactive website for students to search and schedule their classes
 - Review web development (React, REST API, NodeJS), integrate a fully functional database (work with more transaction and concurrency issues)
-- Attempt to improve current BearTracks
 
 ## Major functions
 ### Main Landing page
@@ -19,3 +18,6 @@ Easy to use class searches and scheduling website
 
 ## Wireframe
 ![classhub_wireframe](https://user-images.githubusercontent.com/35233304/134975822-3f0660d7-67cf-4e97-8094-af78886c2242.png)
+
+## UML Class Diagram / Database Schema
+<img width="424" alt="Screen Shot 2021-10-08 at 6 49 25 PM" src="https://user-images.githubusercontent.com/35233304/136637894-35f75665-36a9-4490-93a8-32e6cb75d36f.png">
