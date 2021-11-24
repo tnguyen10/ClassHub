@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Overview from "./components/Overview.js";
 import Profile from "./components/Profile.js";
+import ClassSchedule from "./components/ClassSchedule.js";
 
 const appStyle = {
   height: "100vh",
@@ -32,7 +33,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={styleWrap("app", <Overview />)}>
           <Route path="profile" element={styleWrap("body", <Profile />)} />
-          <Route path="class_schedule" element={styleWrap("body", <Profile />)} />
+          <Route path="class_schedule" element={styleWrap("body", <ClassSchedule />)} />
           <Route path="class_search" element={styleWrap("body", <Profile />)} />
         </Route>
       </Routes>
