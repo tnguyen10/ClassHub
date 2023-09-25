@@ -21,3 +21,9 @@ Easy to use class searches and scheduling website
 
 ## UML Class Diagram / Database Schema
 <img width="424" alt="Screen Shot 2021-10-08 at 6 49 25 PM" src="https://user-images.githubusercontent.com/35233304/136637894-35f75665-36a9-4490-93a8-32e6cb75d36f.png">
+
+## Demo
+https://github.com/tnguyen10/ClassHub/assets/35233304/73a29e27-0028-4f62-a082-9259c1b5e010
+
+
+
